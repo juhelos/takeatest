@@ -24,14 +24,12 @@ function myfunction() {
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const kohde = urlParams.get('osoite');
-//var url = new URL(queryString);
-//var kohde = url.searchParams.get("osoite");   
-alert(kohde);
 
-//jos parametrit mukana, siirrytään testimoodiin, pitäisikö olla kohde ei null tms.
-if (queryString.indexOf("?") > -1) {
-document.getElementById("linkki").innerHTML = "<a href='ms-edu-secureassessment:" + kohde + "#enforceLockdown'>" + "ms-edu-secureassessment:" + kohde + "#enforceLockdown</a>";
-var linkkitestiin= "ms-edu-secureassessment:" + kohde + "#enforceLockdown";
+
+//jos osoite mukana, siirrytään testimoodiin
+if (kohde !== null) {
+	var linkkitestiin= "ms-edu-secureassessment:" + kohde + "#enforceLockdown";
+	document.write();
     window.location = linkkitestiin;
 }
          }  
@@ -39,25 +37,28 @@ var linkkitestiin= "ms-edu-secureassessment:" + kohde + "#enforceLockdown";
 function luoLinkki() {
   var x = document.getElementById("myInput").value;
   x = x.replace(/\s+/g, '');
+  var alku = "ms-edu-secureassessment:";
+  var loppu = "#enforceLockdown";
+  var nykyinen = window.location;
+  var strLink = nykyinen + "?" + "osoite=" + x;
   
-  document.getElementById("linkkielementti").innerHTML = "<a href='window.location.href' + "?osoite=" + "ms-edu-secureassessment:" + x + "#enforceLockdown'>" + "ms-edu-secureassessment:" + x + "#enforceLockdown</a>";
+  document.getElementById("linkkielementti").setAttribute("href", strLink);
+  document.getElementById("linkkielementti").innerHTML = strLink;
+  
 }
 
 
 </script>  
 </head>  
-<body>
+<body onload="myfunction()">
 <div class="element">
 		<h1>Luo Take a test -linkki</h1>
 		<p>Syötä osallistumislinkki kokeeseen (esim. Forms):</p>
 <input type="text" autocomplete="off" id="myInput" oninput="luoLinkki()"><br>
-		<p>Kopioi ja jaa tämä linkki osallistujille:</p>
- <strong><p id="linkkielementti"></p></strong><hr><br>
-		<a href="https://docs.microsoft.com/en-us/education/windows/take-a-test-single-pc#provide-a-link-to-the-test" target="_blank">Microsoft documentation</a>
+		<p>Kopioi ja jaa tämä linkki osallistujille:</p><hr>
+ <strong><a id="linkkielementti"></a></strong><br>
 
-<p>Click the following button to see the function in action</p>  
-<input type = "button" onclick = "myfunction()" value = "Display">
-<strong><p id="linkki"></p></strong><hr><br>
+<strong><p id="linkki"></p></strong><br>
 </div>
 
 </body>  
